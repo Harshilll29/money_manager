@@ -9,5 +9,20 @@
       "name": "money.manager.frontend.url",
       "type": "java.lang.String",
       "description": "Description for money.manager.frontend.url."
+    },
+    {
+      "name": "brevo.sender.name",
+      "type": "java.lang.String",
+      "description": "Description for brevo.sender.name."
+    },
+    {
+      "name": "brevo.sender.email",
+      "type": "java.lang.String",
+      "description": "Description for brevo.sender.email."
+    },
+    {
+      "name": "brevo.api.key",
+      "type": "java.lang.String",
+      "description": "Description for brevo.api.key."
     }
   ] }

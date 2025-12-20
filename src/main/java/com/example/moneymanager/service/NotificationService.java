@@ -19,7 +19,7 @@ import java.util.List;
 public class NotificationService {
 
     private final ProfileRepository profileRepository;
-    private final EmailService emailService;
+    private final BrevoApiEmailService emailService;
     private final ExpenseService expenseService;
 
     @Value("${money.manager.frontend.url}")
