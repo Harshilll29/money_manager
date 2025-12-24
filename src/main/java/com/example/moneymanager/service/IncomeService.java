@@ -91,6 +91,7 @@ public class IncomeService {
 
     private IncomeDTO toDTO(IncomeEntity entity){
         return IncomeDTO.builder()
+                .id(entity.getId())
                 .name(entity.getName())
                 .icon(entity.getIcon())
                 .categoryId(entity.getCategory() != null ? entity.getCategory().getId() : null)

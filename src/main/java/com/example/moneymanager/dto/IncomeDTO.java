@@ -19,7 +19,7 @@ public class IncomeDTO {
     private String name;
     private String icon;
     private String categoryName;
-    private long categoryId;
+    private Long categoryId;
     private BigDecimal amount;
     private LocalDate date;
     private LocalDateTime createdAt;
