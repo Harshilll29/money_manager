@@ -1,43 +1,35 @@
 package com.example.moneymanager.controller;
 
-import com.example.moneymanager.entity.ProfileEntity;
-import com.example.moneymanager.service.ExpenseExcelService;
-import com.example.moneymanager.service.IncomeExcelService;
-import com.example.moneymanager.service.ProfileService;
+import com.example.moneymanager.service.ExcelService;
+import com.example.moneymanager.service.ExpenseService;
+import com.example.moneymanager.service.IncomeService;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
+@RequestMapping("/excel")
 @RequiredArgsConstructor
 public class ExcelController {
 
+        private final ExcelService excelService;
+        private final IncomeService incomeService;
+        private final ExpenseService expenseService;
 
-    private final IncomeExcelService incomeExcelService;
-    private final ExpenseExcelService expenseExcelService;
-    private final ProfileService profileService;
+        @GetMapping("/download/income")
+        public void downloadIncomeExcel(HttpServletResponse response) throws IOException {
+                response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                response.setHeader("Content-Disposition", "attachment; filename=income.xlsx");
+                excelService.writeIncomesToExcel(response.getOutputStream(), incomeService.getCurrentMonthIncomesForCurrentUser());
+        }
 
-    @GetMapping("/excel/download/income")
-    public ResponseEntity<byte[]> downloadIncomeExcel() {
-        ProfileEntity profile = profileService.getCurrentProfile();
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=income-report.xlsx")
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(incomeExcelService.generate(profile));
-    }
-
-    @GetMapping("/excel/download/expense")
-    public ResponseEntity<byte[]> downloadExpenseExcel() {
-        ProfileEntity profile = profileService.getCurrentProfile();
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=expense-report.xlsx")
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(expenseExcelService.generate(profile));
-    }
+        @GetMapping("/download/expense")
+    public void downloadExpenseExcel(HttpServletResponse response) throws IOException{
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Content-Disposition", "attachment; filename=expense.xlsx");
+            excelService.writeExpenseToExcel(response.getOutputStream(), expenseService.getCurrentMonthExpensesForCurrentUser());
+        }
 }
