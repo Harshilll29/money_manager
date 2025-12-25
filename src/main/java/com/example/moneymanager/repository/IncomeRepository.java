@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface IncomeRepository extends JpaRepository<IncomeEntity, Long> {
 
+    List<IncomeEntity> findByProfileId(Long profileId);
+
     //select * from tbl_incomes where profile_id = ?1 order by date desc
     List<IncomeEntity> findByProfileIdOrderByDateDesc(Long profileId);
 

@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface ExpenseRepository extends JpaRepository<ExpenseEntity, Long> {
 
+    List<ExpenseEntity> findByProfileId(Long profileId);
+
     //select * from tbl_expenses where profile_id = ?1 order by date desc
     List<ExpenseEntity> findByProfileIdOrderByDateDesc(Long profileId);
 
