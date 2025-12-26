@@ -97,6 +97,7 @@ public class ExpenseService {
     
     private ExpenseDTO toDTO(ExpenseEntity entity){
         return ExpenseDTO.builder()
+                .id(entity.getId())
                 .name(entity.getName())
                 .icon(entity.getIcon())
                 .categoryId(entity.getCategory() != null ? entity.getCategory().getId() : null)
